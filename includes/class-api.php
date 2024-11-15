@@ -39,7 +39,7 @@ class API {
 	 *
 	 * @var string
 	 */
-	const API_URL = 'https://app.wp101plugin.com/api';
+	const API_URL = 'https://wp101plugin.com/wp-json/api/v2';
 
 	/**
 	 * Option key for the site's (private) API key.

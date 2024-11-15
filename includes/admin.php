@@ -265,21 +265,13 @@ add_action( 'update_option_wp101_api_key', __NAMESPACE__ . '\clear_public_api_ke
  * @return bool Whether or not the series should be displayed.
  */
 function is_relevant_series( $series ) {
-	$is_relevant = true;
-
-	if ( ! empty( $series['restrictions']['plugins'] ) ) {
-		$restrictions = array_filter( $series['restrictions']['plugins'], 'is_plugin_active' );
-
-		$is_relevant = ! empty( $restrictions );
+	if ( ! isset( $series['restrictions']['plugins'] ) || empty( $series['restrictions']['plugins'] ) ) {
+		return true;
 	}
 
-	/**
-	 * Determine if a series is relevant for the given site.
-	 *
-	 * @param bool  $is_relevant Whether or not the series is relevant for this site.
-	 * @param array $series      The series details.
-	 */
-	return apply_filters( 'wp101_is_relevant_series', $is_relevant, $series );
+	$restrictions = array_filter( $series['restrictions']['plugins'], 'is_plugin_active' );
+
+	return ! empty( $restrictions );
 }
 
 /**
