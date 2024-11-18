@@ -480,6 +480,14 @@ class API {
 
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
+		if ( ! isset( $body['status'] ) || ! isset( $body['data'] ) ) {
+			return new WP_Error(
+				'wp101-api',
+				__( 'The WP101 API request response was invalid.', 'wp101' ),
+				$body['data']
+			);
+		}
+
 		if ( 'fail' === $body['status'] ) {
 			return new WP_Error(
 				'wp101-api',
